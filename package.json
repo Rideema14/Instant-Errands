@@ -1,0 +1,15 @@
+{
+  "name": "quickserve",
+  "version": "1.0.0",
+  "description": "Urgent Home Services Platform — React + Vite + Node.js + MongoDB",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npm start",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": ["home-services", "react", "nodejs", "mongodb", "socket.io"],
+  "author": "QuickServe",
+  "license": "MIT"
+}
