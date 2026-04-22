@@ -174,4 +174,3 @@ Or it auto-seeds on the Home page if no services exist.
 **Backend:** Node.js, Express, MongoDB + Mongoose, Socket.io, JWT, bcryptjs
 
 **AI:** Anthropic Claude (claude-sonnet-4-20250514) via REST API
-"# Instant-Errands" 

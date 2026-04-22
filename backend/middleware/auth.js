@@ -8,12 +8,15 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select("-password");
+      if (!req.user) return res.status(401).json({ message: "User not found" });
+      if (!req.user.isActive) return res.status(403).json({ message: "Account disabled" });
       next();
-    } catch (error) {
+    } catch {
       return res.status(401).json({ message: "Not authorized, token failed" });
     }
+  } else {
+    res.status(401).json({ message: "Not authorized, no token" });
   }
-  if (!token) return res.status(401).json({ message: "Not authorized, no token" });
 };
 
 const adminOnly = (req, res, next) => {
@@ -21,4 +24,17 @@ const adminOnly = (req, res, next) => {
   res.status(403).json({ message: "Admin access required" });
 };
 
-module.exports = { protect, adminOnly };
+const providerOnly = (req, res, next) => {
+  if (req.user?.role === "provider") return next();
+  res.status(403).json({ message: "Provider access required" });
+};
+
+const kycApproved = (req, res, next) => {
+  if (req.user?.role !== "provider") return next();
+  if (req.user?.kyc?.status !== "approved") {
+    return res.status(403).json({ message: "KYC verification required before accessing this feature" });
+  }
+  next();
+};
+
+module.exports = { protect, adminOnly, providerOnly, kycApproved };

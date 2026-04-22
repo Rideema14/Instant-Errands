@@ -59,6 +59,27 @@ router.put("/availability", protect, async (req, res) => {
   }
 });
 
+// Update own provider profile (bio, services, pricing)
+router.put("/profile", protect, async (req, res) => {
+  try {
+    if (req.user.role !== "provider")
+      return res.status(403).json({ message: "Provider access required" });
+    const { bio, experience, pricePerHour, responseTime, videoPreviewUrl, services } = req.body;
+    const provider = await Provider.findOne({ user: req.user._id });
+    if (!provider) return res.status(404).json({ message: "Provider profile not found" });
+    if (bio !== undefined) provider.bio = bio;
+    if (experience !== undefined) provider.experience = Number(experience);
+    if (pricePerHour !== undefined) provider.pricePerHour = Number(pricePerHour);
+    if (responseTime !== undefined) provider.responseTime = Number(responseTime);
+    if (videoPreviewUrl !== undefined) provider.videoPreviewUrl = videoPreviewUrl;
+    if (services) provider.services = services;
+    await provider.save();
+    res.json(provider);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Add review
 router.post("/:id/review", protect, async (req, res) => {
   try {

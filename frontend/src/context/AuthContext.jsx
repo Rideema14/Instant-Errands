@@ -1,43 +1,49 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import api from '../utils/api';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const u = localStorage.getItem('qs_user');
-    return u ? JSON.parse(u) : null;
+    try { return JSON.parse(localStorage.getItem('qs_user')); } catch { return null; }
   });
   const [loading, setLoading] = useState(false);
+
+  const persist = (data) => {
+    localStorage.setItem('qs_token', data.token);
+    localStorage.setItem('qs_user', JSON.stringify(data));
+    setUser(data);
+  };
 
   const login = async (email, password) => {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/login', { email, password });
-      localStorage.setItem('qs_token', data.token);
-      localStorage.setItem('qs_user', JSON.stringify(data));
-      setUser(data);
-      return { success: true };
+      persist(data);
+      return { success: true, role: data.role };
     } catch (err) {
       return { success: false, message: err.response?.data?.message || 'Login failed' };
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
-  const register = async (name, email, password, phone) => {
+  const register = async (payload) => {
     setLoading(true);
     try {
-      const { data } = await api.post('/auth/register', { name, email, password, phone });
-      localStorage.setItem('qs_token', data.token);
-      localStorage.setItem('qs_user', JSON.stringify(data));
-      setUser(data);
-      return { success: true };
+      const { data } = await api.post('/auth/register', payload);
+      persist(data);
+      return { success: true, role: data.role };
     } catch (err) {
       return { success: false, message: err.response?.data?.message || 'Registration failed' };
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
+  };
+
+  const refreshUser = async () => {
+    try {
+      const { data } = await api.get('/auth/me');
+      const updated = { ...user, ...data };
+      localStorage.setItem('qs_user', JSON.stringify(updated));
+      setUser(updated);
+    } catch {}
   };
 
   const logout = () => {
@@ -47,7 +53,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
