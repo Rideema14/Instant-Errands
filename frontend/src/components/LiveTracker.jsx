@@ -40,19 +40,19 @@ export default function LiveTracker({ booking }) {
           ? 'rgba(34,197,94,0.12)'
           : status === 'en_route' || status === 'arrived'
             ? 'rgba(255,92,43,0.12)'
-            : 'var(--surface)',
-        border: `1px solid ${status === 'completed' ? 'rgba(34,197,94,0.3)' : status === 'en_route' ? 'rgba(255,92,43,0.3)' : 'var(--border)'}`,
-        borderRadius: 'var(--radius)',
+            : 'white',
+        border: `1px solid ${status === 'completed' ? 'rgba(34,197,94,0.3)' : status === 'en_route' ? 'rgba(255,92,43,0.3)' : 'var(--blink-border)'}`,
+        borderRadius: '12px',
         padding: 20, marginBottom: 24,
         display: 'flex', alignItems: 'center', gap: 16,
       }}>
         <div style={{ fontSize: 40 }}>{STATUS_ICONS[status]}</div>
         <div>
           <div style={{
-            fontFamily: 'var(--font-display)', fontWeight: 800,
-            fontSize: 20, color: 'var(--text)',
+            fontFamily: 'Poppins, sans-serif', fontWeight: 800,
+            fontSize: 20, color: 'var(--blink-text)',
           }}>{STATUS_LABELS[status]}</div>
-          <div style={{ fontSize: 14, color: 'var(--text2)', marginTop: 4 }}>
+          <div style={{ fontSize: 14, color: 'var(--blink-text2)', marginTop: 4 }}>
             {booking?.isUrgent ? '⚡ Urgent booking' : '📅 Scheduled booking'}
             {booking?.estimatedArrival && status !== 'completed' && (
               <span style={{ marginLeft: 12 }}>
@@ -71,8 +71,8 @@ export default function LiveTracker({ booking }) {
               <div style={{
                 width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: i <= currentStep ? 'var(--accent)' : 'var(--surface2)',
-                border: `2px solid ${i <= currentStep ? 'var(--accent)' : 'var(--border)'}`,
+                background: i <= currentStep ? 'var(--blink-green)' : '#f9fafb',
+                border: `2px solid ${i <= currentStep ? 'var(--blink-green)' : 'var(--blink-border)'}`,
                 fontSize: 14, transition: 'all 0.4s',
                 animation: i === currentStep ? 'pulse-glow 2s infinite' : 'none',
               }}>
@@ -81,7 +81,7 @@ export default function LiveTracker({ booking }) {
               {i < STATUS_STEPS.length - 2 && (
                 <div style={{
                   flex: 1, height: 2,
-                  background: i < currentStep ? 'var(--accent)' : 'var(--border)',
+                  background: i < currentStep ? 'var(--blink-green)' : 'var(--blink-border)',
                   transition: 'background 0.4s',
                 }} />
               )}
@@ -90,7 +90,7 @@ export default function LiveTracker({ booking }) {
         </div>
         <div style={{ display: 'flex', marginTop: 8 }}>
           {STATUS_STEPS.slice(0, -1).map((step, i) => (
-            <div key={step} style={{ flex: 1, fontSize: 10, color: i <= currentStep ? 'var(--accent)' : 'var(--text3)', textAlign: 'center' }}>
+            <div key={step} style={{ flex: 1, fontSize: 10, color: i <= currentStep ? 'var(--blink-green)' : 'var(--blink-text3)', textAlign: 'center' }}>
               {STATUS_LABELS[step].split(' ')[0]}
             </div>
           ))}
@@ -100,27 +100,27 @@ export default function LiveTracker({ booking }) {
       {/* Provider Info */}
       {booking?.provider && (
         <div style={{
-          background: 'var(--surface)', border: '1px solid var(--border)',
-          borderRadius: 'var(--radius)', padding: 16, marginBottom: 20,
+          background: 'white', border: '1px solid var(--blink-border)',
+          borderRadius: '12px', padding: 16, marginBottom: 20,
           display: 'flex', alignItems: 'center', gap: 14,
         }}>
           <div style={{
             width: 48, height: 48, borderRadius: '50%',
-            background: 'var(--accent)',
+            background: 'var(--blink-green)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 20, fontWeight: 700, color: 'white',
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'Poppins, sans-serif',
           }}>
             {booking.provider.user?.name?.[0]?.toUpperCase()}
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 700, fontSize: 15 }}>{booking.provider.user?.name}</div>
-            <div style={{ fontSize: 13, color: 'var(--text2)' }}>
+            <div style={{ fontSize: 13, color: 'var(--blink-text2)' }}>
               ⭐ {booking.provider.rating?.toFixed(1)} · {booking.provider.completedJobs} jobs
             </div>
           </div>
           <a href={`tel:${booking.provider.user?.phone}`} style={{
-            background: 'var(--green)', color: 'white',
+            background: 'var(--blink-green)', color: 'white',
             padding: '10px 16px', borderRadius: 8, fontSize: 14,
             fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6,
           }}>📞 Call</a>
@@ -131,13 +131,13 @@ export default function LiveTracker({ booking }) {
       {booking?.otp && status !== 'completed' && (
         <div style={{
           background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.3)',
-          borderRadius: 'var(--radius)', padding: 16, marginBottom: 20, textAlign: 'center',
+          borderRadius: '12px', padding: 16, marginBottom: 20, textAlign: 'center',
         }}>
-          <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: 6 }}>
+          <div style={{ fontSize: 12, color: 'var(--blink-text2)', marginBottom: 6 }}>
             Share this OTP with provider to confirm arrival:
           </div>
           <div style={{
-            fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800,
+            fontFamily: 'Poppins, sans-serif', fontSize: 36, fontWeight: 800,
             color: 'var(--purple)', letterSpacing: '0.3em',
           }}>{booking.otp}</div>
         </div>
@@ -145,7 +145,7 @@ export default function LiveTracker({ booking }) {
 
       {/* Timeline */}
       <div>
-        <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--text2)', marginBottom: 12 }}>Activity Log</div>
+        <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--blink-text2)', marginBottom: 12 }}>Activity Log</div>
         {[...updates].reverse().map((update, i) => (
           <div key={i} style={{
             display: 'flex', gap: 12, marginBottom: 12,
@@ -153,12 +153,12 @@ export default function LiveTracker({ booking }) {
           }}>
             <div style={{
               width: 8, height: 8, borderRadius: '50%',
-              background: i === 0 ? 'var(--accent)' : 'var(--border2)',
+              background: i === 0 ? 'var(--blink-green)' : 'var(--border2)',
               flexShrink: 0, marginTop: 5,
             }}/>
             <div>
-              <div style={{ fontSize: 13, color: 'var(--text)' }}>{update.message}</div>
-              <div style={{ fontSize: 11, color: 'var(--text3)', marginTop: 2 }}>
+              <div style={{ fontSize: 13, color: 'var(--blink-text)' }}>{update.message}</div>
+              <div style={{ fontSize: 11, color: 'var(--blink-text3)', marginTop: 2 }}>
                 {new Date(update.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
             </div>

@@ -82,7 +82,7 @@ export default function ProviderProfile() {
     <div className="page" style={{ maxWidth:700 }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:28 }}>
         <div>
-          <h1 className="section-title">My Profile</h1>
+          <h1 className="section-label">My Profile</h1>
           <p className="section-sub" style={{ marginBottom:0 }}>Manage your provider settings and services</p>
         </div>
         <button onClick={() => navigate('/provider/dashboard')} className="btn-ghost">← Dashboard</button>
@@ -90,7 +90,7 @@ export default function ProviderProfile() {
 
       {/* KYC status notice */}
       {kycStatus !== 'approved' && (
-        <div style={{ marginBottom:20, padding:'14px 18px', borderRadius:10, background:'rgba(245,158,11,0.1)', border:'1px solid rgba(245,158,11,0.3)', fontSize:14, color:'var(--text2)', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+        <div style={{ marginBottom:20, padding:'14px 18px', borderRadius:10, background:'rgba(245,158,11,0.1)', border:'1px solid rgba(245,158,11,0.3)', fontSize:14, color:'var(--blink-text2)', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <span>⚠️ Your profile won't be visible to customers until your KYC is approved.</span>
           <button className="btn-primary" style={{ padding:'8px 16px', fontSize:13 }} onClick={() => navigate('/provider/kyc')}>
             {kycStatus === 'not_submitted' ? 'Start KYC' : kycStatus === 'rejected' ? 'Resubmit' : 'View Status'}
@@ -99,14 +99,14 @@ export default function ProviderProfile() {
       )}
 
       {/* Avatar */}
-      <div className="card" style={{ marginBottom:16, display:'flex', alignItems:'center', gap:20 }}>
+      <div className="blink-card" style={{ marginBottom:16, display:'flex', alignItems:'center', gap:20 }}>
         <div style={{ position:'relative', flexShrink:0 }}>
           <div style={{
             width:80, height:80, borderRadius:'50%',
-            background: avatarPreview ? 'transparent' : 'var(--accent)',
+            background: avatarPreview ? 'transparent' : 'var(--blink-green)',
             display:'flex', alignItems:'center', justifyContent:'center',
-            fontSize:30, fontWeight:800, color:'white', fontFamily:'var(--font-display)',
-            overflow:'hidden', border:'3px solid var(--border)',
+            fontSize:30, fontWeight:800, color:'white', fontFamily:'Poppins, sans-serif',
+            overflow:'hidden', border:'3px solid var(--blink-border)',
           }}>
             {avatarPreview
               ? <img src={avatarPreview} alt="Avatar" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
@@ -115,7 +115,7 @@ export default function ProviderProfile() {
           <label style={{
             position:'absolute', bottom:0, right:0,
             width:26, height:26, borderRadius:'50%',
-            background:'var(--accent)', color:'white',
+            background:'var(--blink-green)', color:'white',
             display:'flex', alignItems:'center', justifyContent:'center',
             cursor:'pointer', fontSize:13, border:'2px solid var(--bg)',
           }}>
@@ -124,63 +124,63 @@ export default function ProviderProfile() {
           </label>
         </div>
         <div>
-          <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:18 }}>{user?.name}</div>
-          <div style={{ fontSize:13, color:'var(--text2)' }}>{user?.email}</div>
-          <div style={{ fontSize:12, color:'var(--text3)', marginTop:4 }}>Click the ✏️ icon to change your photo</div>
+          <div style={{ fontFamily:'Poppins, sans-serif', fontWeight:700, fontSize:18 }}>{user?.name}</div>
+          <div style={{ fontSize:13, color:'var(--blink-text2)' }}>{user?.email}</div>
+          <div style={{ fontSize:12, color:'var(--blink-text3)', marginTop:4 }}>Click the ✏️ icon to change your photo</div>
         </div>
       </div>
 
       {/* Bio & Info */}
-      <div className="card" style={{ marginBottom:16 }}>
-        <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:16, marginBottom:16 }}>About You</div>
+      <div className="blink-card" style={{ marginBottom:16 }}>
+        <div style={{ fontFamily:'Poppins, sans-serif', fontWeight:700, fontSize:16, marginBottom:16 }}>About You</div>
         <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
           <div>
-            <label style={{ fontSize:13, color:'var(--text2)', display:'block', marginBottom:6 }}>Bio / Introduction</label>
+            <label style={{ fontSize:13, color:'var(--blink-text2)', display:'block', marginBottom:6 }}>Bio / Introduction</label>
             <textarea rows={4} placeholder="Tell customers about your experience, skills, and why they should choose you..."
               value={form.bio} onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
               style={{ resize:'none' }} />
           </div>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:12 }}>
             <div>
-              <label style={{ fontSize:13, color:'var(--text2)', display:'block', marginBottom:6 }}>Experience (years)</label>
+              <label style={{ fontSize:13, color:'var(--blink-text2)', display:'block', marginBottom:6 }}>Experience (years)</label>
               <input type="number" min="0" value={form.experience} onChange={e => setForm(f => ({ ...f, experience: e.target.value }))} />
             </div>
             <div>
-              <label style={{ fontSize:13, color:'var(--text2)', display:'block', marginBottom:6 }}>Price / Hour (₹)</label>
+              <label style={{ fontSize:13, color:'var(--blink-text2)', display:'block', marginBottom:6 }}>Price / Hour (₹)</label>
               <input type="number" min="100" value={form.pricePerHour} onChange={e => setForm(f => ({ ...f, pricePerHour: e.target.value }))} />
             </div>
             <div>
-              <label style={{ fontSize:13, color:'var(--text2)', display:'block', marginBottom:6 }}>Avg. Response (min)</label>
+              <label style={{ fontSize:13, color:'var(--blink-text2)', display:'block', marginBottom:6 }}>Avg. Response (min)</label>
               <input type="number" min="5" value={form.responseTime} onChange={e => setForm(f => ({ ...f, responseTime: e.target.value }))} />
             </div>
           </div>
           <div>
-            <label style={{ fontSize:13, color:'var(--text2)', display:'block', marginBottom:6 }}>Intro Video URL (optional)</label>
+            <label style={{ fontSize:13, color:'var(--blink-text2)', display:'block', marginBottom:6 }}>Intro Video URL (optional)</label>
             <input placeholder="https://youtube.com/..." value={form.videoPreviewUrl} onChange={e => setForm(f => ({ ...f, videoPreviewUrl: e.target.value }))} />
           </div>
         </div>
       </div>
 
       {/* Services selection */}
-      <div className="card" style={{ marginBottom:20 }}>
-        <div style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:16, marginBottom:6 }}>Services You Offer</div>
-        <p style={{ fontSize:13, color:'var(--text2)', marginBottom:16 }}>Select all services you are qualified to perform.</p>
+      <div className="blink-card" style={{ marginBottom:20 }}>
+        <div style={{ fontFamily:'Poppins, sans-serif', fontWeight:700, fontSize:16, marginBottom:6 }}>Services You Offer</div>
+        <p style={{ fontSize:13, color:'var(--blink-text2)', marginBottom:16 }}>Select all services you are qualified to perform.</p>
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
           {services.map(s => {
             const selected = selectedServices.includes(s._id);
             return (
               <button key={s._id} onClick={() => toggleService(s._id)} style={{
                 padding:'12px 14px', borderRadius:10, textAlign:'left',
-                border:`2px solid ${selected ? 'var(--accent)' : 'var(--border)'}`,
+                border:`2px solid ${selected ? 'var(--blink-green)' : 'var(--blink-border)'}`,
                 background: selected ? 'rgba(255,92,43,0.08)' : 'var(--bg)',
                 cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:10,
               }}>
                 <span style={{ fontSize:22 }}>{s.icon}</span>
                 <div>
-                  <div style={{ fontSize:13, fontWeight:600, color:'var(--text)' }}>{s.name}</div>
-                  <div style={{ fontSize:11, color:'var(--text3)' }}>₹{s.basePrice} base</div>
+                  <div style={{ fontSize:13, fontWeight:600, color:'var(--blink-text)' }}>{s.name}</div>
+                  <div style={{ fontSize:11, color:'var(--blink-text3)' }}>₹{s.basePrice} base</div>
                 </div>
-                {selected && <span style={{ marginLeft:'auto', color:'var(--accent)', fontSize:16 }}>✓</span>}
+                {selected && <span style={{ marginLeft:'auto', color:'var(--blink-green)', fontSize:16 }}>✓</span>}
               </button>
             );
           })}

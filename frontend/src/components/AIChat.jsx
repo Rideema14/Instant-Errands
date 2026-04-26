@@ -50,7 +50,7 @@ export default function AIChat({ onClose }) {
       <div style={{
         width: 400, maxHeight: '80vh',
         background: 'var(--bg2)',
-        border: '1px solid var(--border)',
+        border: '1px solid var(--blink-border)',
         borderRadius: 'var(--radius-lg)',
         display: 'flex', flexDirection: 'column',
         boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
@@ -59,23 +59,23 @@ export default function AIChat({ onClose }) {
         {/* Header */}
         <div style={{
           padding: '16px 20px',
-          borderBottom: '1px solid var(--border)',
+          borderBottom: '1px solid var(--blink-border)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{
               width: 36, height: 36, borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--accent), var(--purple))',
+              background: 'linear-gradient(135deg, var(--blink-green), var(--purple))',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 18,
             }}>🤖</div>
             <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15 }}>QuickServe AI</div>
-              <div style={{ fontSize: 11, color: 'var(--green)' }}>● Always online</div>
+              <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 15 }}>QuickServe AI</div>
+              <div style={{ fontSize: 11, color: 'var(--blink-green)' }}>● Always online</div>
             </div>
           </div>
           <button onClick={onClose} style={{
-            background: 'var(--surface)', border: 'none', color: 'var(--text2)',
+            background: 'white', border: 'none', color: 'var(--blink-text2)',
             width: 30, height: 30, borderRadius: '50%', cursor: 'pointer',
             fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>×</button>
@@ -92,8 +92,8 @@ export default function AIChat({ onClose }) {
                 maxWidth: '80%',
                 padding: '10px 14px',
                 borderRadius: msg.role === 'user' ? '14px 14px 2px 14px' : '14px 14px 14px 2px',
-                background: msg.role === 'user' ? 'var(--accent)' : 'var(--surface)',
-                color: 'var(--text)',
+                background: msg.role === 'user' ? 'var(--blink-green)' : 'white',
+                color: 'var(--blink-text)',
                 fontSize: 14, lineHeight: 1.5,
               }}>
                 {msg.content}
@@ -101,11 +101,11 @@ export default function AIChat({ onClose }) {
             </div>
           ))}
           {loading && (
-            <div style={{ display: 'flex', gap: 4, padding: '10px 14px', background: 'var(--surface)', borderRadius: 14, alignSelf: 'flex-start', width: 60 }}>
+            <div style={{ display: 'flex', gap: 4, padding: '10px 14px', background: 'white', borderRadius: 14, alignSelf: 'flex-start', width: 60 }}>
               {[0,1,2].map(i => (
                 <div key={i} style={{
                   width: 6, height: 6, borderRadius: '50%',
-                  background: 'var(--text3)',
+                  background: 'var(--blink-text3)',
                   animation: `pulse-glow 1s ease ${i * 0.2}s infinite`,
                 }}/>
               ))}
@@ -116,10 +116,10 @@ export default function AIChat({ onClose }) {
               background: 'rgba(255,92,43,0.1)', border: '1px solid rgba(255,92,43,0.3)',
               borderRadius: 12, padding: 14,
             }}>
-              <div style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 8 }}>
+              <div style={{ fontSize: 13, color: 'var(--blink-text2)', marginBottom: 8 }}>
                 🎯 Recommended service:
               </div>
-              <div style={{ fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-display)', marginBottom: 10 }}>
+              <div style={{ fontWeight: 700, color: 'var(--blink-green)', fontFamily: 'Poppins, sans-serif', marginBottom: 10 }}>
                 {recommendation}
               </div>
               <button
@@ -135,7 +135,7 @@ export default function AIChat({ onClose }) {
         </div>
 
         {/* Input */}
-        <div style={{ padding: 16, borderTop: '1px solid var(--border)' }}>
+        <div style={{ padding: 16, borderTop: '1px solid var(--blink-border)' }}>
           <div style={{ display: 'flex', gap: 8 }}>
             <input
               value={input}
@@ -148,7 +148,7 @@ export default function AIChat({ onClose }) {
               onClick={send}
               disabled={!input.trim() || loading}
               style={{
-                background: input.trim() ? 'var(--accent)' : 'var(--surface)',
+                background: input.trim() ? 'var(--blink-green)' : 'white',
                 color: 'white', border: 'none', borderRadius: 10,
                 padding: '0 16px', cursor: 'pointer',
                 transition: 'all 0.2s', fontSize: 18,

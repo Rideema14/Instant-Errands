@@ -55,22 +55,22 @@ export default function ProviderDetail() {
       <div className="card" style={{ marginBottom: 20, display: 'flex', gap: 24, alignItems: 'flex-start', flexWrap: 'wrap' }}>
         <div style={{
           width: 80, height: 80, borderRadius: '50%',
-          background: 'linear-gradient(135deg, var(--accent), var(--purple))',
+          background: 'linear-gradient(135deg, var(--blink-green), var(--purple))',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 34, fontWeight: 800, color: 'white',
-          fontFamily: 'var(--font-display)', flexShrink: 0,
+          fontFamily: 'Poppins, sans-serif', flexShrink: 0,
         }}>
           {u.name?.[0]?.toUpperCase()}
         </div>
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 6 }}>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24 }}>{u.name}</h1>
+            <h1 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 24 }}>{u.name}</h1>
             {provider.isVerified && (
               <span className="badge badge-blue" style={{ fontSize: 12 }}>✓ Verified</span>
             )}
             <span style={{
               background: provider.isAvailable ? 'rgba(34,197,94,0.12)' : 'rgba(96,96,120,0.15)',
-              color: provider.isAvailable ? 'var(--green)' : 'var(--text3)',
+              color: provider.isAvailable ? 'var(--blink-green)' : 'var(--blink-text3)',
               fontSize: 12, fontWeight: 600, padding: '4px 12px', borderRadius: 100,
             }}>
               {provider.isAvailable ? '● Available Now' : '○ Busy'}
@@ -78,7 +78,7 @@ export default function ProviderDetail() {
           </div>
 
           {provider.bio && (
-            <p style={{ fontSize: 15, color: 'var(--text2)', marginBottom: 12, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 15, color: 'var(--blink-text2)', marginBottom: 12, lineHeight: 1.6 }}>
               {provider.bio}
             </p>
           )}
@@ -93,10 +93,10 @@ export default function ProviderDetail() {
               { label: 'Response', value: `~${provider.responseTime} min` },
             ].map(({ label, value }) => (
               <div key={label}>
-                <div style={{ fontSize: 18, fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--text)' }}>
+                <div style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Poppins, sans-serif', color: 'var(--blink-text)' }}>
                   {value}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--text3)' }}>{label}</div>
+                <div style={{ fontSize: 12, color: 'var(--blink-text3)' }}>{label}</div>
               </div>
             ))}
           </div>
@@ -104,10 +104,10 @@ export default function ProviderDetail() {
 
         {/* Price + CTA */}
         <div style={{ flexShrink: 0, textAlign: 'right' }}>
-          <div style={{ fontSize: 28, fontWeight: 900, fontFamily: 'var(--font-display)', color: 'var(--text)', marginBottom: 4 }}>
+          <div style={{ fontSize: 28, fontWeight: 900, fontFamily: 'Poppins, sans-serif', color: 'var(--blink-text)', marginBottom: 4 }}>
             ₹{provider.pricePerHour}
           </div>
-          <div style={{ fontSize: 13, color: 'var(--text3)', marginBottom: 16 }}>per hour</div>
+          <div style={{ fontSize: 13, color: 'var(--blink-text3)', marginBottom: 16 }}>per hour</div>
           <button
             className="btn-primary"
             disabled={!provider.isAvailable}
@@ -122,7 +122,7 @@ export default function ProviderDetail() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
         {/* Services offered */}
         <div className="card">
-          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, marginBottom: 14 }}>
+          <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 16, marginBottom: 14 }}>
             Services Offered
           </div>
           {provider.services?.length ? (
@@ -130,23 +130,23 @@ export default function ProviderDetail() {
               {provider.services.map(s => (
                 <div key={s._id} style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '10px 12px', background: 'var(--surface2)', borderRadius: 8,
+                  padding: '10px 12px', background: '#f9fafb', borderRadius: 8,
                 }}>
                   <span style={{ fontSize: 14 }}>{s.icon} {s.name}</span>
-                  <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>
+                  <span style={{ fontSize: 13, color: 'var(--blink-green)', fontWeight: 600 }}>
                     ₹{s.basePrice}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p style={{ color: 'var(--text3)', fontSize: 14 }}>No services listed.</p>
+            <p style={{ color: 'var(--blink-text3)', fontSize: 14 }}>No services listed.</p>
           )}
         </div>
 
         {/* Badges */}
         <div className="card">
-          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, marginBottom: 14 }}>
+          <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 16, marginBottom: 14 }}>
             Badges & Highlights
           </div>
           {provider.badges?.length ? (
@@ -162,14 +162,14 @@ export default function ProviderDetail() {
               {provider.isVerified && <span className="badge badge-blue">✓ Verified Pro</span>}
               {provider.responseTime <= 15 && <span className="badge badge-urgent">⚡ Fast Responder</span>}
               {!provider.completedJobs && !provider.rating && (
-                <p style={{ color: 'var(--text3)', fontSize: 14 }}>No badges yet.</p>
+                <p style={{ color: 'var(--blink-text3)', fontSize: 14 }}>No badges yet.</p>
               )}
             </div>
           )}
 
           {/* Video preview */}
           {provider.videoPreviewUrl && (
-            <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
+            <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--blink-border)' }}>
               <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 10 }}>Intro Video</div>
               {showVideo ? (
                 <video
@@ -182,8 +182,8 @@ export default function ProviderDetail() {
                   onClick={() => setShowVideo(true)}
                   style={{
                     width: '100%', padding: '20px', borderRadius: 8,
-                    background: 'var(--surface2)', border: '1px solid var(--border)',
-                    color: 'var(--accent)', cursor: 'pointer',
+                    background: '#f9fafb', border: '1px solid var(--blink-border)',
+                    color: 'var(--blink-green)', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     fontSize: 14, fontWeight: 600,
                   }}
@@ -198,41 +198,41 @@ export default function ProviderDetail() {
 
       {/* Reviews */}
       <div className="card" style={{ marginBottom: 20 }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, marginBottom: 16 }}>
+        <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 16, marginBottom: 16 }}>
           Customer Reviews ({provider.totalReviews || 0})
         </div>
         {provider.reviews?.length ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {provider.reviews.slice().reverse().slice(0, 5).map((r, i) => (
               <div key={i} style={{
-                padding: '14px 16px', background: 'var(--surface2)',
-                borderRadius: 10, borderLeft: '3px solid var(--accent)',
+                padding: '14px 16px', background: '#f9fafb',
+                borderRadius: 10, borderLeft: '3px solid var(--blink-green)',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                   <div style={{ display: 'flex', gap: 2 }}>
                     {[1,2,3,4,5].map(s => (
-                      <span key={s} style={{ color: s <= r.rating ? 'var(--yellow)' : 'var(--border2)', fontSize: 14 }}>★</span>
+                      <span key={s} style={{ color: s <= r.rating ? '#f8c000' : 'var(--border2)', fontSize: 14 }}>★</span>
                     ))}
                   </div>
-                  <span style={{ fontSize: 12, color: 'var(--text3)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--blink-text3)' }}>
                     {new Date(r.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </span>
                 </div>
                 {r.comment && (
-                  <p style={{ fontSize: 14, color: 'var(--text2)', lineHeight: 1.5 }}>{r.comment}</p>
+                  <p style={{ fontSize: 14, color: 'var(--blink-text2)', lineHeight: 1.5 }}>{r.comment}</p>
                 )}
               </div>
             ))}
           </div>
         ) : (
-          <p style={{ color: 'var(--text3)', fontSize: 14 }}>No reviews yet. Be the first!</p>
+          <p style={{ color: 'var(--blink-text3)', fontSize: 14 }}>No reviews yet. Be the first!</p>
         )}
       </div>
 
       {/* Leave a review */}
       {user && (
         <div className="card">
-          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, marginBottom: 16 }}>
+          <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 16, marginBottom: 16 }}>
             Leave a Review
           </div>
           <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
@@ -242,7 +242,7 @@ export default function ProviderDetail() {
                 onClick={() => setReviewForm(f => ({ ...f, rating: s }))}
                 style={{
                   fontSize: 28, background: 'none', border: 'none', cursor: 'pointer',
-                  color: s <= reviewForm.rating ? 'var(--yellow)' : 'var(--border2)',
+                  color: s <= reviewForm.rating ? '#f8c000' : 'var(--border2)',
                   transition: 'color 0.15s',
                 }}
               >★</button>

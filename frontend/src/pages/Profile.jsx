@@ -41,32 +41,32 @@ export default function Profile() {
         <div className="card" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{
             width: 72, height: 72, borderRadius: '50%',
-            background: 'var(--accent)',
+            background: 'var(--blink-green)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 30, fontWeight: 800, color: 'white',
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'Poppins, sans-serif',
           }}>{user?.name?.[0]?.toUpperCase()}</div>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 20 }}>{user?.name}</div>
-            <div style={{ color: 'var(--text2)', fontSize: 14 }}>{user?.email}</div>
+            <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 20 }}>{user?.name}</div>
+            <div style={{ color: 'var(--blink-text2)', fontSize: 14 }}>{user?.email}</div>
             <span className="badge badge-blue" style={{ marginTop: 8 }}>{user?.role}</span>
           </div>
         </div>
 
         {/* Personal Info */}
         <div className="card">
-          <div style={{ fontWeight: 700, fontFamily: 'var(--font-display)', marginBottom: 16 }}>Personal Information</div>
+          <div style={{ fontWeight: 700, fontFamily: 'Poppins, sans-serif', marginBottom: 16 }}>Personal Information</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 13, color: 'var(--text2)', display: 'block', marginBottom: 6 }}>Full Name</label>
+              <label style={{ fontSize: 13, color: 'var(--blink-text2)', display: 'block', marginBottom: 6 }}>Full Name</label>
               <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
             </div>
             <div>
-              <label style={{ fontSize: 13, color: 'var(--text2)', display: 'block', marginBottom: 6 }}>Phone</label>
+              <label style={{ fontSize: 13, color: 'var(--blink-text2)', display: 'block', marginBottom: 6 }}>Phone</label>
               <input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="+91 98765 43210" />
             </div>
             <div>
-              <label style={{ fontSize: 13, color: 'var(--text2)', display: 'block', marginBottom: 6 }}>Email (read-only)</label>
+              <label style={{ fontSize: 13, color: 'var(--blink-text2)', display: 'block', marginBottom: 6 }}>Email (read-only)</label>
               <input value={user?.email} disabled style={{ opacity: 0.5 }} />
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function Profile() {
 
         {/* Address */}
         <div className="card">
-          <div style={{ fontWeight: 700, fontFamily: 'var(--font-display)', marginBottom: 16 }}>Default Address</div>
+          <div style={{ fontWeight: 700, fontFamily: 'Poppins, sans-serif', marginBottom: 16 }}>Default Address</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <input placeholder="Street / Flat No." value={form.address.street}
               onChange={e => setForm(f => ({ ...f, address: { ...f.address, street: e.target.value } }))} />

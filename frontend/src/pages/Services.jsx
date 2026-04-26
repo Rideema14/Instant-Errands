@@ -2,7 +2,17 @@ import { useState, useEffect } from 'react';
 import api from '../utils/api';
 import ServiceCard from '../components/ServiceCard';
 
-const CATEGORIES = ['All', 'AC Repair', 'Plumbing', 'Laundry', 'Grooming', 'Electrical', 'Cleaning', 'Carpentry', 'Pest Control'];
+const CATEGORIES = [
+  { name: 'All', icon: '🏠' },
+  { name: 'AC Repair', icon: '❄️' },
+  { name: 'Plumbing', icon: '🔧' },
+  { name: 'Laundry', icon: '👕' },
+  { name: 'Grooming', icon: '✂️' },
+  { name: 'Electrical', icon: '⚡' },
+  { name: 'Cleaning', icon: '🧹' },
+  { name: 'Carpentry', icon: '🪚' },
+  { name: 'Pest Control', icon: '🐛' },
+];
 
 export default function Services() {
   const [services, setServices] = useState([]);
@@ -23,60 +33,91 @@ export default function Services() {
   });
 
   return (
-    <div className="page">
-      <div style={{ marginBottom: 32 }}>
-        <h1 className="section-title">All Services</h1>
-        <p className="section-sub">Find the right service for your home needs</p>
-
-        {/* Search + Filter row */}
-        <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-          <input
-            placeholder="Search services..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            style={{ flex: 1, minWidth: 200, maxWidth: 340 }}
-          />
-          <button
-            onClick={() => setUrgentOnly(!urgentOnly)}
-            className={urgentOnly ? 'btn-primary' : 'btn-secondary'}
-            style={{ padding: '12px 20px', fontSize: 13 }}
-          >
-            ⚡ Urgent Only
-          </button>
-        </div>
-
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                padding: '7px 14px', borderRadius: 100, fontSize: 13, fontWeight: 500,
-                background: activeCategory === cat ? 'var(--accent)' : 'var(--surface)',
-                color: activeCategory === cat ? 'white' : 'var(--text2)',
-                border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--border)'}`,
-                cursor: 'pointer', transition: 'all 0.2s',
-              }}
-            >{cat}</button>
-          ))}
+    <div style={{ background: 'white', minHeight: '100vh' }}>
+      {/* Top banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, #0c831f 0%, #16a34a 100%)',
+        padding: '28px 20px',
+      }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <h1 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 28, color: 'white', marginBottom: 4 }}>
+            All Services
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14 }}>Professional help across 8+ categories, available 24/7</p>
         </div>
       </div>
 
-      {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: 80 }}>
-          <div className="spinner" style={{ width: 36, height: 36 }} />
+      <div className="page" style={{ background: 'white' }}>
+        {/* Search + filter */}
+        <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
+          <div className="input-icon-wrap" style={{ flex: 1, minWidth: 220, maxWidth: 380 }}>
+            <span className="input-icon">🔍</span>
+            <input
+              placeholder="Search services..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{ paddingLeft: 42 }}
+            />
+          </div>
+          <button
+            onClick={() => setUrgentOnly(!urgentOnly)}
+            style={{
+              background: urgentOnly ? '#fff7ed' : 'white',
+              color: urgentOnly ? 'var(--blink-orange)' : 'var(--blink-text2)',
+              border: `2px solid ${urgentOnly ? 'var(--blink-orange)' : '#e5e7eb'}`,
+              borderRadius: 12, padding: '12px 20px',
+              fontSize: 14, fontWeight: 800, cursor: 'pointer', transition: 'all 0.15s',
+              display: 'flex', alignItems: 'center', gap: 6,
+            }}
+          >⚡ Urgent Only</button>
         </div>
-      ) : filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: 80, color: 'var(--text3)' }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
-          <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>No services found</div>
-          <div style={{ fontSize: 14 }}>Try a different search or category</div>
+
+        {/* Category pills */}
+        <div className="scroll-row" style={{ marginBottom: 28, paddingBottom: 6 }}>
+          {CATEGORIES.map(cat => (
+            <button
+              key={cat.name}
+              className={`cat-pill ${activeCategory === cat.name ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.name)}
+            >{cat.icon} {cat.name}</button>
+          ))}
         </div>
-      ) : (
-        <div className="grid-4">
-          {filtered.map(s => <ServiceCard key={s._id} service={s} />)}
-        </div>
-      )}
+
+        {/* Results count */}
+        {!loading && (
+          <div style={{ fontSize: 13, color: 'var(--blink-text2)', marginBottom: 16, fontWeight: 600 }}>
+            {filtered.length} service{filtered.length !== 1 ? 's' : ''} found
+            {activeCategory !== 'All' && ` in "${activeCategory}"`}
+          </div>
+        )}
+
+        {loading ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
+            {[...Array(8)].map((_, i) => (
+              <div key={i} style={{ borderRadius: 16, overflow: 'hidden', background: '#f9fafb' }}>
+                <div className="shimmer-box" style={{ height: 110 }} />
+                <div style={{ padding: '14px 16px' }}>
+                  <div className="shimmer-box" style={{ height: 14, marginBottom: 8, borderRadius: 6 }} />
+                  <div className="shimmer-box" style={{ height: 10, width: '60%', borderRadius: 6 }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '80px 20px' }}>
+            <div style={{ fontSize: 56, marginBottom: 16 }}>🔍</div>
+            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 20, fontWeight: 700, marginBottom: 8 }}>No services found</div>
+            <p style={{ color: 'var(--blink-text2)', marginBottom: 24 }}>Try a different search or category</p>
+            <button className="btn-primary" onClick={() => { setSearch(''); setActiveCategory('All'); setUrgentOnly(false); }}>
+              Clear Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid-services animate-fade-in">
+            {filtered.map(s => <ServiceCard key={s._id} service={s} />)}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
