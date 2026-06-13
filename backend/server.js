@@ -12,10 +12,10 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: process.env.CLIENT_URL || "http://localhost:5173", methods: ["GET","POST"] },
+  cors: { origin: process.env.CLIENT_URL || "https://instant-errands.vercel.app", methods: ["GET","POST"] },
 });
 
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+app.use(cors({ origin: process.env.CLIENT_URL || "https://instant-errands.vercel.app" }));
 app.use(express.json());
 
 // Serve uploaded files (avatars, KYC docs) statically
